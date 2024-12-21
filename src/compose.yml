@@ -1,0 +1,51 @@
+services:
+
+  db:
+    image: postgres
+    container_name: caf_db
+    restart: always
+    # set shared memory limit when using docker-compose
+    shm_size: 128mb
+    # or set shared memory limit when deploy via swarm stack
+    #volumes:
+    #  - type: tmpfs
+    #    target: /dev/shm
+    #    tmpfs:
+    #      size: 134217728 # 128*2^20 bytes = 128Mb
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: example
+    
+  ui:
+    build: ./ui
+    restart: always
+    container_name: caf_ui
+    ports:
+      - 80:4200
+    
+  backend:
+    build: ./backend
+    restart: always
+    container_name: caf_backend
+    ports:
+      - 8000:8000
+
+  pgadmin4:
+    image: elestio/pgadmin
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: test@phygineer.com
+      PGADMIN_DEFAULT_PASSWORD: Test1234
+      PGADMIN_LISTEN_PORT: 8080
+    ports:
+    - "8080:8080"
+    # volumes:
+    # - ./database/servers.json:/pgadmin4/servers.json
+
+volumes:
+  postgres_data:

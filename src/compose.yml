@@ -34,7 +34,9 @@ services:
     container_name: caf_backend
     ports:
       - 8000:8000
-
+    volumes:
+      # Mount the Docker socket from your host
+      - /var/run/docker.sock:/var/run/docker.sock
   pgadmin4:
     image: elestio/pgadmin
     restart: always

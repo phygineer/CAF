@@ -1,0 +1,43 @@
+/* Gradient heading */
+.fancy-heading {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-align: center;
+  
+    /* Gradient text effect */
+    background: linear-gradient(45deg, #f093fb, #f5576c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  
+    /* Subtle drop shadow behind text */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Tile/card styling */
+  .tile {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+    /* Hover effect: scale up slightly & add a soft shadow */
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    }
+  }
+  
+  /* Icon inside the tile */
+  .tile i {
+    font-size: 80px;
+    /* We do NOT override the color here, so Devicon's "colored" style is retained */
+    transition: transform 0.3s ease;
+  }
+  
+  /* Optional: Rotate the icon a bit on hover without changing color */
+  .tile:hover i {
+    transform: rotate(5deg);
+  }
+  

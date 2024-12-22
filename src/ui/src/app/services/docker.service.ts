@@ -14,7 +14,7 @@ interface Container {
   providedIn: 'root'
 })
 export class DockerService {
-  private baseUrl = 'http://localhost:8000/api';  // FastAPI base URL
+  private baseUrl = 'http://localhost:8000/api/docker';  // FastAPI base URL
 
   constructor(private http: HttpClient) {}
 

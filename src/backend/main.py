@@ -3,7 +3,7 @@ from typing import Union
 import time
 
 from fastapi import FastAPI, Request
-from routers import mock,docker
+from routers import mock,docker,selenium
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -22,6 +22,7 @@ app.add_middleware(
 
 app.include_router(mock.router,prefix="/api",tags=["mock"])
 app.include_router(docker.router,prefix="/api",tags=["docker"])
+app.include_router(selenium.router,prefix="/api",tags=["selenium"])
 @app.middleware("http")
 async def add_process_time_header(request: Request, call_next):
     start_time = time.perf_counter()

@@ -1,0 +1,29 @@
+# Start from a lightweight Ubuntu (or any minimal base like alpine: if you adapt commands)
+FROM ubuntu:latest
+
+# Use ARG for Selenium version so you can easily override at build time
+ARG SELENIUM_VERSION="4.12.0"
+
+# Non-interactive environment
+ENV DEBIAN_FRONTEND=noninteractive
+
+# 1) Install Java (required for Selenium Server)
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        default-jre-headless \
+        wget \
+    && rm -rf /var/lib/apt/lists/*
+
+# 2) Create a directory for Selenium
+RUN mkdir -p /opt/selenium
+WORKDIR /opt/selenium
+
+# 3) Download Selenium Server jar
+RUN wget -O selenium-server.jar \
+    https://github.com/SeleniumHQ/selenium/releases/download/selenium-$SELENIUM_VERSION/selenium-server-$SELENIUM_VERSION.jar
+
+# 4) Expose default Selenium Grid hub port
+EXPOSE 4444
+
+# 5) By default, run Selenium as a Grid Hub
+CMD ["java", "-jar", "/opt/selenium/selenium-server.jar", "hub"]
